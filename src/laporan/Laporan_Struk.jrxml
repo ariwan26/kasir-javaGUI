@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Laporan_Struk" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="760a0947-3c9d-43b6-a00c-45b1a5cc2064">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="id_transaksi" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT transaksi.`id` AS kd_transaksi,`user`.`id` AS id_petugas,`user`.`nama` AS nama_petugas,
+transaksi.`tgl`, transaksi.`jam`, barang.`nama_barang`,
+det_transaksi.`jumlah` AS qty, det_transaksi.`subtotal` ,transaksi.`total` AS total_belanja
+FROM transaksi
+INNER JOIN det_transaksi ON transaksi.`id_detail` = det_transaksi.`id`
+INNER JOIN `user` ON transaksi.`id_user` = `user`.`id`
+INNER JOIN barang ON det_transaksi.`id_barang` = barang.`id`
+where transaksi.`id` = $P{id_transaksi}]]>
+	</queryString>
+	<field name="kd_transaksi" class="java.lang.Integer"/>
+	<field name="id_petugas" class="java.lang.Integer"/>
+	<field name="nama_petugas" class="java.lang.String"/>
+	<field name="tgl" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="jam" class="java.sql.Time">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nama_barang" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="qty" class="java.lang.Integer"/>
+	<field name="subtotal" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="total_belanja" class="java.lang.Integer"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="78" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="-21" y="-23" width="597" height="101" backcolor="#0984E3" uuid="140d010b-08c1-42ff-aba2-c14bc4b2bb8c"/>
+				<staticText>
+					<reportElement x="145" y="23" width="295" height="52" forecolor="#FFFFFF" uuid="eccbd8fc-67af-40be-a86c-938311ee5644"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Century Gothic" size="30" isBold="true"/>
+					</textElement>
+					<text><![CDATA[STRUK PEMBAYARAN]]></text>
+				</staticText>
+			</frame>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="124" splitType="Stretch">
+			<textField>
+				<reportElement mode="Opaque" x="454" y="9" width="122" height="20" backcolor="#E6E6E6" uuid="a3a61d5c-2ff7-4f3e-b5ec-871e36e00f18"/>
+				<textElement textAlignment="Center">
+					<font fontName="Century Gothic" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new SimpleDateFormat("dd-MM-yyyy").format($F{tgl}) +" "+new SimpleDateFormat("HH:mm:ss").format($F{jam})]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="-17" y="9" width="77" height="20" backcolor="#E6E6E6" uuid="18bfe457-a613-40c7-9e64-328100698567"/>
+				<textElement>
+					<font fontName="Century Gothic" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ID Transaksi]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="70" y="9" width="100" height="20" uuid="c7876863-ea3e-4bb4-adc6-9009fb68ea06"/>
+				<textElement>
+					<font fontName="Century Gothic" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{kd_transaksi}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="-17" y="29" width="77" height="20" backcolor="#E6E6E6" uuid="fb3348ad-6d5f-4976-90c7-19e18c8d55ef"/>
+				<textElement>
+					<font fontName="Century Gothic" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[iD Petugas]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="70" y="29" width="100" height="20" uuid="d4d5f2cb-64b4-46d2-b79c-05da22a1e800"/>
+				<textElement>
+					<font fontName="Century Gothic" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{id_petugas}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="-17" y="49" width="77" height="20" backcolor="#E6E6E6" uuid="12161143-6f56-420d-8e20-f18fd0535509"/>
+				<textElement>
+					<font fontName="Century Gothic" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nama ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="70" y="49" width="100" height="20" uuid="cd7b1b9a-4209-4548-a27b-8d031bb0e44f"/>
+				<textElement>
+					<font fontName="Century Gothic" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nama_petugas}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="104" width="373" height="20" uuid="fb031101-a1f8-41fe-9b4a-7ac962bbd9dc"/>
+				<textElement>
+					<font fontName="Century Gothic" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nama Barang]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="373" y="104" width="46" height="20" uuid="01d474fa-3fee-43e4-8b2b-444cab8f47c6"/>
+				<textElement textAlignment="Center">
+					<font fontName="Century Gothic" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Qty]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="419" y="104" width="135" height="20" uuid="5f009244-7102-404b-8fef-daaebda27806"/>
+				<textElement textAlignment="Right">
+					<font fontName="Century Gothic" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SubTotal]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="25" splitType="Stretch">
+			<textField>
+				<reportElement x="373" y="5" width="46" height="20" uuid="69f59356-3c5c-4292-8554-897198d0217a"/>
+				<textElement textAlignment="Center">
+					<font fontName="Century Gothic"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{qty}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="419" y="5" width="135" height="20" uuid="72777313-d4a3-4dfc-b9f4-629cdb270dcb"/>
+				<textElement textAlignment="Right">
+					<font fontName="Century Gothic"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{subtotal}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="5" width="373" height="20" uuid="b4aaba17-c321-48bd-8ce0-ef72a598fdbf"/>
+				<textElement>
+					<font fontName="Century Gothic"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nama_barang}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="101" splitType="Stretch">
+			<staticText>
+				<reportElement x="359" y="0" width="60" height="36" uuid="820ea818-c402-450b-909c-0ec42587cef5"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Century Gothic" size="20" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="434" y="0" width="121" height="36" uuid="b5b3d66c-7091-42b6-99d1-0e8adb9db787"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Century Gothic" size="20" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{total_belanja}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="36" width="555" height="20" uuid="397d2b04-93ce-4e7a-91cb-63b5b7c8dbd4"/>
+				<text><![CDATA[=============================================================================================]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="199" y="46" width="148" height="28" uuid="7ff7da42-2346-4108-b0a4-135666be8ae7"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Century Gothic" size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Terima Kasih ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="142" y="75" width="253" height="26" uuid="bcf2b1e8-89f5-4d05-8143-9fdbcd450fa1"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Century Gothic" size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Atas Kunjungan Anda]]></text>
+			</staticText>
+		</band>
+	</columnFooter>
+</jasperReport>
